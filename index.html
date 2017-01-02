@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jarl</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="jarl.js"></script>
+
+    <link href="jarl.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  </head>
+  <body ng-app="jarl" ng-controller="jarlCtrl">
+    <h1>Jarl</h1>
+
+    <form name="urlForm" action="">
+      <div class="field">
+        <label for="fullUrl">Full URL</label>
+        <input name="fullUrl" ng-model="fullUrl" type="url" placeholder="https://www.google.com">
+      </div>
+    </form>
+
+    <div ng-show="baseUrl !== ''">
+      <div class="field">
+        <span class="label">Base URL:</span>
+        <span>{{baseUrl}}</span>
+      </div>
+
+      <table ng-show="params.length > 0">
+        <tr>
+          <th>Key</th>
+          <th>Value</th>
+        </tr>
+        <tr ng-repeat="p in params">
+          <td class="key">{{p.key}}</td>
+          <td class="value">{{p.val}}</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
