@@ -1,11 +1,11 @@
 angular.module("jarl", [])
   .controller("jarlCtrl", ["$scope", function ($scope) {
     $scope.fullUrl = "";
-    $scope.baseUrl = $scope.fullUrl;
-    $scope.params = [];
 
     $scope.$watch("fullUrl", function (newVal, oldVal) {
-      if (urlForm.fullUrl.$error && urlForm.fullUrl.$error.url) {
+      if (typeof(newVal) === "undefined") {
+        $scope.baseUrl = "";
+        $scope.params = [];
         return;
       }
       var parts = newVal.split("?");
@@ -26,6 +26,8 @@ angular.module("jarl", [])
         }
 
         $scope.params = params;
+      } else {
+        $scope.params = [];
       }
     });
   }]);

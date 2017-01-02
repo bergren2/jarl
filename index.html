@@ -14,11 +14,11 @@
     <form name="urlForm" action="">
       <div class="field">
         <label for="fullUrl">Full URL</label>
-        <input name="fullUrl" ng-model="fullUrl" type="url" placeholder="https://www.google.com">
+        <input name="fullUrl" ng-model="fullUrl" type="url" placeholder="https://www.google.com" required>
       </div>
     </form>
 
-    <div ng-show="baseUrl !== ''">
+    <div ng-hide="urlForm.fullUrl.$error.required || urlForm.fullUrl.$error.url">
       <div class="field">
         <span class="label">Base URL:</span>
         <span>{{baseUrl}}</span>
