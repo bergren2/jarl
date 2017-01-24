@@ -5,7 +5,6 @@ angular.module("jarl", [])
       $scope.fullUrl = "";
     } else {
       $scope.fullUrl = decodeURIComponent($location.search().url);
-      console.log($scope.fullUrl);
     }
 
     $scope.$watch("fullUrl", function (newVal, oldVal) {
@@ -33,10 +32,33 @@ angular.module("jarl", [])
         var params = [];
         for (var i = 0; i < keyvals.length; i++) {
           var kv = keyvals[i].split("=");
-          params.push({
-            key: kv[0],
-            val: decodeURIComponent(kv[1])
-          });
+          var key = kv[0];
+          var val = decodeURIComponent(kv[1]);
+
+          // lazily and flexibly check if it's base64
+          // note, this will give false positives because we're not domain experts
+          var isBase64;
+          try {
+            isBase64 = new RegExp(val + "=*").exec(btoa(atob(val)));
+          } catch (e) {
+            isBase64 = false;
+          }
+
+          if (isBase64) {
+            params.push({
+              key: key,
+              val: val,
+              isBase64: isBase64,
+              decoded64: atob(val)
+            });
+          } else {
+            params.push({
+              key: key,
+              val: val,
+              isBase64: isBase64
+            });
+          }
+
         }
 
         $scope.params = params;

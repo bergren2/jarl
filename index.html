@@ -32,11 +32,13 @@
       <table ng-show="params.length > 0">
         <tr>
           <th>Key</th>
-          <th>Value</th>
+          <th>Value (URL Decoded)</th>
+          <th>base64 Decoded</th>
         </tr>
         <tr ng-repeat="p in params">
           <td class="key">{{p.key}}</td>
           <td class="value">{{p.val}}</td>
+          <td class="actions" ng-show="p.isBase64">{{p.decoded64}}</td>
         </tr>
       </table>
     </div>
