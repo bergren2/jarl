@@ -1,15 +1,23 @@
 angular.module("jarl", [])
-  .controller("jarlCtrl", ["$scope", function ($scope) {
-    $scope.fullUrl = "";
+  .controller("jarlCtrl", ["$scope", "$location", function ($scope, $location) {
+    // decode the URL if it is provided
+    if (typeof($location.search().url) === "undefined") {
+      $scope.fullUrl = "";
+    } else {
+      $scope.fullUrl = decodeURIComponent($location.search().url);
+    }
 
     $scope.$watch("fullUrl", function (newVal, oldVal) {
       if (typeof(newVal) === "undefined") {
         $scope.baseUrl = "";
+        $scope.shareableUrl = "";
         $scope.params = [];
         return;
       }
+
       var parts = newVal.split("?");
 
+      $scope.shareableUrl = $location.absUrl().split('?')[0] + "?url=" + encodeURIComponent(newVal);
       $scope.baseUrl = parts[0];
       var paramStrings = parts[1];
 

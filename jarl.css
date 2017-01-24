@@ -7,6 +7,10 @@ body {
   margin-bottom: 20px;
 }
 
+.shareable input {
+  width: 100px;
+}
+
 input {
   width: 100%;
 }
