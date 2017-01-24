@@ -5,6 +5,7 @@ angular.module("jarl", [])
       $scope.fullUrl = "";
     } else {
       $scope.fullUrl = decodeURIComponent($location.search().url);
+      console.log($scope.fullUrl);
     }
 
     $scope.$watch("fullUrl", function (newVal, oldVal) {
@@ -17,7 +18,12 @@ angular.module("jarl", [])
 
       var parts = newVal.split("?");
 
-      $scope.shareableUrl = $location.absUrl().split('?')[0] + "?url=" + encodeURIComponent(newVal);
+      if (newVal === "") {
+        $scope.shareableUrl = "";
+      } else {
+        $scope.shareableUrl = $location.absUrl().split('#?')[0] + "#?url=" + encodeURIComponent(newVal);
+      }
+
       $scope.baseUrl = parts[0];
       var paramStrings = parts[1];
 

@@ -16,7 +16,7 @@
         <label for="fullUrl">Full URL</label>
         <input name="fullUrl" ng-model="fullUrl" type="url" placeholder="https://www.google.com" required>
       </div>
-      <div class="shareable field">
+      <div class="shareable field" ng-hide="shareableUrl === ''">
         <label>Shareable URL:</label>
         <input name="shareableUrl" value="{{shareableUrl}}" onclick="this.select()" readonly>
       </div>
