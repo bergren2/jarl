@@ -35,11 +35,14 @@ angular.module("jarl", [])
           var key = kv[0];
           var val = decodeURIComponent(kv[1]);
 
-          // lazily and flexibly check if it's base64
+          // lazily and (somewhat) flexibly check if it's base64
           // note, this will give false positives because we're not domain experts
-          var isBase64;
+          // right now we're looking for basic decodes + email addresses
+          var isBase64, decodedVal;
           try {
-            isBase64 = new RegExp(val + "=*").exec(btoa(atob(val)));
+            decodedVal = atob(val);
+
+            isBase64 = /^[a-zA-Z0-9@.]+$/.exec(decodedVal) && new RegExp(val + "=*").exec(btoa(decodedVal));
           } catch (e) {
             isBase64 = false;
           }
@@ -49,7 +52,7 @@ angular.module("jarl", [])
               key: key,
               val: val,
               isBase64: isBase64,
-              decoded64: atob(val)
+              decoded64: decodedVal
             });
           } else {
             params.push({
