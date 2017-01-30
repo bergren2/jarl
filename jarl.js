@@ -42,7 +42,7 @@ angular.module("jarl", [])
           try {
             decodedVal = atob(val);
 
-            isBase64 = /^[a-zA-Z0-9@.?!,'"]+$/.exec(decodedVal) && new RegExp(val + "=*").exec(btoa(decodedVal));
+            isBase64 = /^[a-zA-Z0-9@.?!,'"\w]+$/.exec(decodedVal) && new RegExp(val + "=*").exec(btoa(decodedVal));
           } catch (e) {
             isBase64 = false;
           }
