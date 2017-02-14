@@ -4,7 +4,7 @@ angular.module("jarl", [])
     if (typeof($location.search().url) === "undefined") {
       $scope.fullUrl = "";
     } else {
-      $scope.fullUrl = decodeURIComponent($location.search().url);
+      $scope.fullUrl = $location.search().url;
     }
 
     $scope.$watch("fullUrl", function (newVal, oldVal) {
