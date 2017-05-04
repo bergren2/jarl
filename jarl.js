@@ -28,6 +28,7 @@ angular.module("jarl", [])
 
       if (paramStrings) {
         var keyvals = paramStrings.split("&");
+        $scope.hasBase64 = false;
 
         var params = [];
         for (var i = 0; i < keyvals.length; i++) {
@@ -42,12 +43,13 @@ angular.module("jarl", [])
           try {
             decodedVal = atob(val);
 
-            isBase64 = /^[a-zA-Z0-9@.?!,'" ]+$/.exec(decodedVal) && new RegExp(val + "=*").exec(btoa(decodedVal));
+            isBase64 = /^[-a-zA-Z0-9@.?!,'" ]+$/.exec(decodedVal) && new RegExp(val + "=*").exec(btoa(decodedVal));
           } catch (e) {
             isBase64 = false;
           }
 
           if (isBase64) {
+            $scope.hasBase64 = true;
             params.push({
               key: key,
               val: val,
