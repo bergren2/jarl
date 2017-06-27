@@ -34,7 +34,7 @@ angular.module("jarl", [])
         for (var i = 0; i < keyvals.length; i++) {
           var kv = keyvals[i].split("=");
           var key = kv[0];
-          var val = decodeURIComponent(kv[1]);
+          var val = decodeURIComponent(kv[1].replace(/\+/g, "%20"));
 
           // lazily and (somewhat) flexibly check if it's base64
           // note, this will give false positives because we're not domain experts
